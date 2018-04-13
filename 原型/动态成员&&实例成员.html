@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+</head>
+<body>
+<script>
+    //  实例可以访问静态成员   构造函数不能访问实例成员
+    function Person() {
+        this.name = 'aa';
+        this.age = 20;
+        this.say = function () {
+            return this.name;
+        }
+    }
+
+    Person.op = '第三季';
+    Person.eat = function () {
+        return '你访问到我了';
+    }
+
+    var p1 = new Person();
+
+    console.log(p1.__proto__.constructor.eat());
+    console.log(p1);
+
+    
+    
+    
+    
+    
+</script>
+</body>
+</html>

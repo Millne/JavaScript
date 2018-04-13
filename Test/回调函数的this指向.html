@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function fn1() {
+        console.log(this);
+    }
+    function foo(fun) {
+        fun();  //   函数调用
+        arguments[0]();   //   对象属性调用
+    }
+
+    foo(fn1);
+
+    var obj = {
+        say:function () {
+            console.log(this);
+        }
+    }
+
+
+
+    
+</script>
+</body>
+</html>

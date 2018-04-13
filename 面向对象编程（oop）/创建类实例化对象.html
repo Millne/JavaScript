@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //    person   class
+    function Person(first, last, age, sex) {
+        this.name = { firstName:first, lastName:last};
+        this.age = age;
+        this.sex = sex;
+        this.say = function () {
+            if( this.sex.toLowerCase() == 'man' ){
+                return "Hi! My name is " + this.name + "I have He";
+            }else{
+                return "Hi! My name is " + this.name + "I have She";
+            }
+        }
+    }
+    var p1 = new Person("Thro", "Mil", "20", "Man");
+
+    console.log(p1.say());
+    
+    
+    
+    
+    
+    
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<div class="box"></div>
+<script type="text/x-handlebars-template" id="temp">
+    <ul>
+        <li>品种 : {{animal}}</li>
+        <li>颜色 : {{color}}</li>
+    </ul>
+</script>
+<script src="replaceTxt_pro.js"></script>
+<script>
+    var str = document.querySelector('#temp').innerHTML;
+    var obj = {
+        animal:'哈士奇',
+        color:'银色',
+    };
+
+    document.querySelector('.box').innerHTML = replaceTxt(str,obj);
+</script>
+
+</body>
+</html>

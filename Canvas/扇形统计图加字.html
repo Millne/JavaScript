@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas class="cvs" height="500" width="500"></canvas>
+<script>
+    var cvs = document.getElementsByClassName('cvs')[0];
+    var ctx = cvs.getContext('2d');
+
+
+    function changeAng(ang) {
+        return ( Math.PI / 180 ) * ang;
+    }
+    ctx.beginPath();
+    ctx.fillStyle = '#ffd8aa';
+    ctx.moveTo(100,100);
+    ctx.arc(100,100,70,changeAng(10),changeAng(80));
+    ctx.closePath();
+    ctx.fill();
+
+/*
+* 求扇形的垂直线 (出线的起点坐标)
+*
+*
+* */
+//中间角度
+    var middleRad = ( 80 - 10 ) / 2;
+    //斜线   cos中传的是弧度 而不是角度
+    var slash = Math.cos(changeAng(middleRad)) * 70;
+    var jiao = changeAng(10) + changeAng(middleRad);
+
+    var b = {
+        x: slash * Math.cos(jiao) + 100,
+        y: slash * Math.sin(jiao) + 100
+    }
+
+    //画 出线的起点
+    ctx.beginPath();
+    ctx.fillStyle = '#881eff';
+    ctx.fillRect(b.x, b.y, 2,2);
+    ctx.closePath();
+
+    ctx.fill();
+
+    //画出线
+
+    var long = 25; //设置出线长度
+    ctx.beginPath();
+
+    var lo = {
+        x: long * Math.cos(jiao) + b.x,
+        y: long * Math.sin(jiao) + b.y
+    }
+    console.log(lo);
+    ctx.font="15px Georgia";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "bottom";
+    ctx.fillText("20%",lo.x + 40,lo.y);
+    ctx.beginPath();
+    ctx.strokeStyle = '#881eff';
+    ctx.moveTo( b.x, b.y );
+    ctx.lineTo( lo.x, lo.y );
+    ctx.lineTo( lo.x + 70, lo.y );
+    ctx.stroke();
+
+
+
+
+
+</script>
+</body>
+</html>

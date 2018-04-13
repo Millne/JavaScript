@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>寄生组合式继承</title>
+</head>
+<body>
+<script>
+
+/*
+    function superType(name) {
+        this.name = name;
+        this.colors = ['yellow','green'];
+    }
+superType.prototype.say = function () {
+    return this.name;
+}
+    function subType(name, age) {
+        superType.call(this,name);
+        this.age = age;
+    }
+
+    subType.prototype = new superType();
+    subType.prototype.constructor = superType;
+
+    subType.prototype.sayAge = function () {
+        return this.age;
+    }
+
+    var p1 = new subType('cc',21);
+
+    console.log(p1.name);
+*/
+
+
+//    只调用一次 SuperType 构造函数;    避免了superType()的构造函数内的属性加到 SubType.prototype上;
+
+    function object(op) {
+        function F() {};
+        F.prototype = op;
+        return new F();
+    }
+
+    function inheritPrototype(subType, superType) {
+        var prototype = object(superType.prototype);
+        prototype.constructor = subType;
+        subType.prototype = prototype;
+    }
+
+    function SuperType(name) {
+        this.name = name;
+        this.colors = ['red','green'];
+    }
+
+    SuperType.prototype.sayName = function () {
+        return this.name;
+    }
+
+    function SubType(name, age) {
+        SuperType.call(this,name);
+        this.age = age;
+    }
+
+    inheritPrototype(SubType, SuperType);
+
+    SubType.prototype.sayAge = function () {
+        this.age;
+    }
+
+    var p1 = new SubType('cc',21);
+    console.log(p1.name);
+    p1.colors.push('yellow');
+    console.log(p1);
+    var p2 = new SubType('bb','22');
+    console.log(p2);
+
+
+
+</script>
+</body>
+</html>

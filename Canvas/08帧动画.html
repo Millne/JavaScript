@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        canvas{
+            border: 1px solid red;
+        }
+
+        img{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<canvas id = "cvs" width="500" height="500"></canvas>
+<img src="./imgs/NPC3.png" alt=""/>
+<script>
+    var cvs = document.getElementById('cvs');
+    var ctx = cvs.getContext('2d');
+    var img = document.querySelector('img');
+    var upT,downT,leftT,rightT;
+
+    img.onload = function(){
+        function deepCopy(op1,op2) {
+            for( var key in op1 ){
+                if( op1.hasOwnProperty(key) ){
+                    op2[key] = op1[key];
+                }
+            }
+        }
+        function Person(i, stepX, stepY) {
+            this.i = i;
+            this.stepX = stepX;
+            this.stepY = stepY;
+        }
+        deepCopy({
+            //  向下
+            moveDown:function (step) {
+                //ctx.clearRect(0,0,cvs.width,cvs.height);
+                ctx.drawImage(img,img.width/4 * this.i,0,img.width/4,img.height/4, this.stepX,this.stepY,50,50);
+                if(++this.i >= 4){
+                    this.i = 0;
+                };
+                // 判断顶点
+                this.stepY += step;
+                if( this.stepY <= 0 ){
+                    this.stepY = 500;
+                }else if( this.stepY > 500 ){
+                    this.stepY = 0;
+                }
+            },
+            // 向上
+            moveUp:function (step) {
+               // ctx.clearRect(0,0,cvs.width,cvs.height);
+                ctx.drawImage(img,img.width/4 * this.i, img.height/4 * 3, img.width/4,img.height/4,this.stepX,this.stepY,50,50);
+                if(++this.i >= 4){
+                    this.i = 0;
+                }
+                // 判断顶点
+                this.stepY -= step;
+                if( this.stepY <= 0 ){
+                    this.stepY = 500;
+                }else if( this.stepY > 500 ){
+                    this.stepY = 0;
+                }
+            },
+            //    向左
+            moveLeft:function (step) {
+                //ctx.clearRect(0,0,cvs.width,cvs.height);
+                ctx.drawImage(img,img.width/4 * this.i, img.height/4, img.width/4,img.height/4, this.stepX,this.stepY,50,50);
+                if(++this.i >= 4){
+                    this.i = 0;
+                }
+                // 判断顶点
+                this.stepX -= step;
+                if( this.stepX <= 0 ){
+                    this.stepX = 500;
+                }else if( this.stepX > 500 ){
+                    this.stepX = 0;
+                }
+            },
+            //    向右
+            moveRight:function (step) {
+                //ctx.clearRect(0,0,cvs.width,cvs.height);
+                ctx.drawImage(img,img.width/4 * this.i, img.height/4 * 2, img.width/4,img.height/4, this.stepX,this.stepY,50,50);
+                if(++this.i >= 4){
+                    this.i = 0;
+                }
+                // 判断顶点
+                this.stepX += step;
+                if( this.stepX <= 0 ){
+                    this.stepX = 500;
+                }else if( this.stepX > 500 ){
+                    this.stepX = 0;
+                }
+            },
+            dropDown:function () {
+                ctx.beginPath();
+                ctx.fillRect(this.stepX, this.stepY,4,4);
+                ctx.fillStyle = "#cf7223";
+                ctx.fill();
+            }
+        },Person.prototype)
+
+var per = new Person(0,0,0);
+
+        //38上   40下   37左  39右
+        document.onkeydown = function (ev) {
+            var b = 5;
+            var e = event || window.event || arguments.callee.caller.arguments[0];
+            if( e && e.keyCode == 38 ){
+                clearInterval(upT);
+                upT = setInterval(function () { per.moveUp(b); },30);
+            }else if( e && e.keyCode == 40 ){
+                clearInterval(downT);
+                downT = setInterval(function () { per.moveDown(b); },30);
+            }else if( e && e.keyCode == 37 ){
+                clearInterval(leftT);
+                leftT = setInterval(function () { per.moveLeft(b); },30);
+            }else if( e && e.keyCode == 39 ){
+                clearInterval(rightT);
+                rightT = setInterval(function () { per.moveRight(b); },30);
+            }
+            if( e && e.keyCode == 74 ){
+                per.dropDown();
+            }
+        }
+        document.onkeyup = function (ev) {
+            var e = event || window.event || arguments.callee.caller.arguments[0];
+            if( e && e.keyCode == 38 ){
+                clearInterval(upT);
+            }else if( e && e.keyCode == 40 ){
+                clearInterval(downT);
+            }else if( e && e.keyCode == 37 ){
+                clearInterval(leftT);
+            }else if( e && e.keyCode == 39 ){
+                clearInterval(rightT);
+            }
+        }
+
+    }
+
+</script>
+</body>
+</html>

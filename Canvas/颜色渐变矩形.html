@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas class="cvs"></canvas>
+<canvas class="cvs1" height="300px" width="300px"></canvas>
+<script>
+    var cvs = document.getElementsByClassName('cvs')[0];
+    var cvs1 = document.getElementsByClassName('cvs1')[0];
+    var ctx = cvs.getContext('2d');
+    var ctx = cvs.getContext('2d');
+·
+//颜色渐变的矩形
+
+var col1 = ctx.createLinearGradient(100,0,100,200);
+col1.addColorStop(0,"#ff2d3c");
+col1.addColorStop(0.3,"#f17fff");
+col1.addColorStop(0.6,"#7271ff");
+col1.addColorStop(1,"#91ffe9");
+ctx.fillStyle = col1;
+ctx.fillRect(20,20,200,200);
+
+
+</script>
+</body>
+</html>

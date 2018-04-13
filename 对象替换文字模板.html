@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var str = '我是一只来自南方的name,我喜欢吃food，我的爱好是hopy';
+
+var reg = /\w+/;
+
+var per = {
+    name:'哈士奇',
+    food:'大便',
+    hopy:'撩妹'
+};
+    var newStr = changeTxt(str, per);
+    function changeTxt(str, obj) {
+        var newStr;
+        change(str);
+        function change(str) {
+            var res = reg.exec(str);
+            if (res != null) {
+                str = str.replace(res, obj[res[0]]);
+                change(str);
+            }else{
+                newStr = str;
+            }
+        }
+        return newStr;
+    }
+
+console.log(newStr);
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

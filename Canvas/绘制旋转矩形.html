@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        canvas{
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+<canvas class="cvs2" height="500px" width="500px"></canvas>
+<canvas class="cvs" height="500px" width="500px"></canvas>
+
+<script>
+
+    var cvs = document.getElementsByClassName('cvs')[0];
+    var cvs2 = document.getElementsByClassName('cvs2')[0];
+    var ctx = cvs.getContext('2d');
+    var ctx2 = cvs2.getContext('2d');
+
+    ctx2.fillStyle = "pink";
+    ctx2.fillRect(200,200,100,100);
+
+
+    ctx.translate(250,250);
+    function rot(i) {
+        ctx.clearRect(-60,-60,110,110);
+        ctx.rotate(Math.PI/ 180 * i);
+        ctx.fillStyle = "#b0f0ff";
+        ctx.fillRect(-50,-50,100,100);
+    }
+    var  i = 0;
+
+    setInterval(function () {
+        i += 3;
+        if( i>=360 ){
+            i = 0;
+        }
+        rot(i);
+    },100)
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .msg{
+            width: 450px;
+        }
+        .msg input{
+            width: 80px;
+        }
+    </style>
+</head>
+<body>
+<canvas class="cvs" height="500" width="500"></canvas>
+<div class="">
+    请选择数据个数 : <input type="text" class="val_num" ><input type="button" class="sel_btn" value="确认">
+</div>
+<div class="msg">
+
+</div>
+<script src="line扇形统计图.js"></script>
+<script>
+    var cvs = document.getElementsByClassName('cvs')[0];
+    var ctx = cvs.getContext('2d');
+
+    var sel_btn = document.getElementsByClassName('sel_btn')[0];
+    sel_btn.addEventListener('click',function () {
+        var val_num = document.getElementsByClassName('val_num')[0].value;
+        var msg = document.getElementsByClassName('msg')[0];
+        msg.innerHTML = '';
+        for( var i=0; i<val_num; i++ ){
+            var inpTab = document.createElement('input');
+            var inpVal = document.createElement('input');
+            var spanTab = document.createElement('span');
+            var spanVal = document.createElement('span');
+            var br = document.createElement('br');
+            spanTab.innerHTML = '输入数据名称 :';
+            spanVal.innerHTML = '输入数据值 :';
+            msg.appendChild(spanTab);
+            msg.appendChild(inpTab);
+            msg.appendChild(spanVal);
+            msg.appendChild(inpVal);
+            msg.appendChild(br);
+            inpVal.className = 'val';
+            inpTab.className = 'tab';
+        }
+        var cent_btn = document.createElement('input');
+        cent_btn.type = 'button';
+        cent_btn.value = '生成';
+        msg.appendChild(cent_btn);
+
+        cent_btn.addEventListener('click',function () {
+            var data = [];
+            var vals = document.getElementsByClassName('val');
+            var tabs = document.getElementsByClassName('tab');
+            for( var j=0; j<vals.length; j++ ){
+                data.push({
+                    tab:tabs[j].value,
+                    val:vals[j].value * 1
+                });
+            }
+            ctx.clearRect(0,0,cvs.width,cvs.height);
+            var P = new Pipe(200,150,100,data,
+                ['#8c5dff','#87AFFF','#97EBFF','#C6FFD6','#FFDC7B',
+                    '#B8FFF7','#FF67E0','#CCFF7A','#8BFFE4','BDFFD1',
+                    '#B8FFF7','#FF67E0','#CCFF7A','#8BFFE4','BDFFD1',
+                    '#B8FFF7','#FF67E0','#CCFF7A','#8BFFE4','BDFFD1']);
+
+            P.draw(ctx);
+        })
+    });
+
+
+
+    // function changeAng(ang) {
+    //     return ( Math.PI / 180 ) * ang;
+    // }
+    // function drawRadian(star, end, color) {
+    //     ctx.shadowOffsetX = 0; // 阴影Y轴偏移
+    //     ctx.shadowOffsetY = 0; // 阴影X轴偏移
+    //     ctx.shadowBlur = 20; // 模糊尺寸
+    //     ctx.shadowColor = 'rgba(0, 0, 0, 0.5)'; // 颜色
+    //     ctx.beginPath();
+    //     ctx.moveTo(100,100);
+    //     ctx.arc(100,100,70,changeAng(star),changeAng(end),false);
+    //     ctx.closePath();
+    //     ctx.fillStyle = color;
+    //     ctx.fill();
+    // }
+    // drawRadian(310, 0, "red");
+    // drawRadian(0, 45, "yellow");
+    // drawRadian(45, 120, "#8c5dff");
+    // drawRadian(120, 140, "#A6FF82");
+    // drawRadian(140, 190, "#FFE456");
+    // drawRadian(190, 270, "#FF765F");
+    // drawRadian(270, 310, "#508CFF");
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

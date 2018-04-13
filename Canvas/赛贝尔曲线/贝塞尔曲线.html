@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        canvas{
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+    <script src="lib.js"></script>
+</head>
+<body>
+<canvas class="cvs1" height="800px" width="800px"></canvas>
+<canvas class="cvs2" height="800px" width="800px"></canvas>
+<canvas class="cvs3" height="800px" width="800px"></canvas>
+
+<script>
+    var cvs1 = document.getElementsByClassName('cvs1')[0];
+    var cvs2 = document.getElementsByClassName('cvs2')[0];
+    var cvs3 = document.getElementsByClassName('cvs3')[0];
+
+    var ctx1 = cvs1.getContext('2d');
+    var ctx2 = cvs2.getContext('2d');
+    var ctx3 = cvs3.getContext('2d');
+
+/*
+*  ctx1  画最基本的底线
+*  ctx2  画根据比例移动的线
+*  ctx3  画最终的曲线
+*
+* */
+/*---------------------   第一张画布  star  --------------------------*/
+    //  先画点
+    drawFillRound(ctx1, 30, 50);
+    drawFillRound(ctx1, 60, 170);
+    drawFillRound(ctx1, 200, 100);
+    drawFillRound(ctx1, 360, 280);
+    drawFillRound(ctx1, 160, 280);
+
+
+    // 再画线
+    ctx1.beginPath();
+    ctx1.strokeStyle = '#818181';
+    ctx1.moveTo(30,50);
+    ctx1.lineTo(60,170);
+    ctx1.lineTo(200,100);
+    ctx1.lineTo(360,280);
+    ctx1.lineTo(160,280);
+    ctx1.stroke();
+/*---------------------   第一张画布  end  --------------------------*/
+    // 记录点
+    var num = 3;
+    var b_arr = [
+        {
+            x: 30,
+            y: 50
+        },
+        {
+            x: 60,
+            y: 170
+        },
+        {
+            x: 200,
+            y: 100
+        },
+        {
+            x:360,
+            y:280
+        },
+        {
+            x:160,
+            y:280
+        }
+    ];
+    var move_b_arr = [];
+    //记录画出来的线长 以及一些关键变量
+    function Iot(pro, arr) {
+        this.pro = pro;
+        this.slashs = arr;
+    }
+    var iot = new Iot(0, calcSlashs(b_arr));
+    var starX = 0, starY = 0, endX, endY, zhenPro = 0;
+    var starX1 = 0, starY1 = 0, endX1, endY1, zhenPro1 = 0;
+    var moveX = 0, moveY = 0, moveLong = 0;
+
+    setInterval(function () {
+        ctx2.clearRect(0,0,800,800);
+        if( zhenPro <= 1 ){
+            iot.pro++;
+            move_b_arr[0] = {
+                starX: ( starX = b_arr[0].x + iot.pro * iot.slashs[0].perX ) ,
+                starY: ( starY = b_arr[0].y + iot.pro * iot.slashs[0].perY ) ,
+                zhenPro: ( zhenPro = slashFun(b_arr[0].x,b_arr[0].y,starX,starY) / iot.slashs[0].long ),
+                endX: ( endX = b_arr[1].x + iot.slashs[1].long * zhenPro * iot.slashs[1].perX ),
+                endY: ( endY = b_arr[1].y + iot.slashs[1].long * zhenPro * iot.slashs[1].perY )
+            }
+            drawCanvas2(starX, starY, endX, endY, "#a4ff71");
+            for( var i = 1; i<num; i++ ){
+                move_b_arr[i] = {
+                    starX: ( starX = endX ) ,
+                    starY: ( starY = endY ) ,
+                    zhenPro: ( zhenPro = slashFun(b_arr[i].x,b_arr[i].y,starX,starY) / iot.slashs[i].long ),
+                    endX: ( endX = b_arr[i+1].x + iot.slashs[i+1].long * zhenPro * iot.slashs[i+1].perX ),
+                    endY: ( endY = b_arr[i+1].y + iot.slashs[i+1].long * zhenPro * iot.slashs[i+1].perY )
+                }
+                drawCanvas2(starX, starY, endX, endY, "#ffb66c");
+            }
+            for( var i=0; i<2; i++ ){
+                let starObj = moveLoc(move_b_arr[i].starX,move_b_arr[i].starY,move_b_arr[i].endX,move_b_arr[i].endY);
+                let endObj = moveLoc(move_b_arr[i+1].starX,move_b_arr[i+1].starY,move_b_arr[i+1].endX,move_b_arr[i+1].endY);
+                let obj = moveLoc(starObj.x,starObj.y,endObj.x,endObj.y);
+                moveX = obj.x;
+                moveY = obj.y;
+                drawCanvas2(starObj.x, starObj.y, endObj.x, endObj.y, "#e671ff");
+            }
+
+            //drawCanvas3(moveX,moveY);
+            starObj = null;endObj = null;obj = null;
+        }else{
+            ctx2.clearRect(0, 0, cvs2.width, cvs2.height);
+        }
+    },70);
+/*---------------------   第二张画布  start  --------------------------*/
+function drawCanvas2(starX, starY, endX, endY, color) {
+    drawStroRound( ctx2, starX, starY, color );
+    drawStroRound( ctx2, endX, endY, color );
+    ctx2.beginPath();
+    ctx2.strokeStyle = color;
+    ctx2.moveTo(starX, starY);
+    ctx2.lineTo(endX, endY);
+    ctx2.stroke();
+}
+/*---------------------   第二张画布  end  --------------------------*/
+
+/*---------------------   第三张画布  start  --------------------------*/
+function drawCanvas3(x,y) {
+    ctx3.beginPath();
+    ctx3.fillStyle = "red";
+    ctx3.arc(x,y,1,0, Math.PI * 2);
+    ctx3.fill();
+}
+/*---------------------   第三张画布  end  --------------------------*/
+
+
+
+
+
+</script>
+</body>
+</html>

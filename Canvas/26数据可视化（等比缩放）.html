@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="line折线图.js"></script>
+    <style>
+        canvas {
+            border: 1px solid red;
+            transition: all .6s;
+        }
+        .box{
+            width: 500px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box"><canvas id="cvs" width="500" height="500"></canvas></div>
+    <script>
+        var cvs = document.getElementById('cvs');
+        var ctx = cvs.getContext('2d');
+        var Cts = new CreateCoord(cvs,{
+                top: 20,
+                right: 20,
+                bottom: 20,
+                left: 20
+            },
+            {
+                width: 12,
+                height: 20
+            });
+        Cts.drawCoord(ctx);
+        Cts.drawLineC([10,20,50,80,120,280,100,50,20,30,120,90,400,500],ctx);
+//         var ctx = cvs.getContext('2d');
+//             ctx.clearRect(0,0,cvs.width,cvs.height);
+//             // 坐标轴距离画布上右下左的边距
+//             var padding = {
+//                 top: 20,
+//                 right: 20,
+//                 bottom: 20,
+//                 left: 20
+//             }
+//             // 坐标轴中箭头的宽和高
+//             var arrow = {
+//                 width: 12,
+//                 height: 20
+//             }
+//             // 求坐标轴上顶点的坐标
+//             var vertexTop = {
+//                 x: padding.left,
+//                 y: padding.top
+//             }
+//
+//             // 求坐标轴原点的坐标
+//             var origin = {
+//                 x: padding.left,
+//                 y: cvs.height - padding.bottom
+//             }
+//
+//             // 求坐标轴右顶点的坐标
+//             var vertexRight = {
+//                 x: cvs.width - padding.right,
+//                 y: cvs.height - padding.bottom
+//             }
+//
+//
+//             // 画坐标轴中的两条线Create
+//             ctx.moveTo( vertexTop.x, vertexTop.y );
+//             ctx.lineTo( origin.x, origin.y );
+//             ctx.lineTo( vertexRight.x, vertexRight.y );
+//             ctx.stroke();
+//
+//             // 画上顶点箭头
+//             ctx.beginPath();
+//             ctx.moveTo( vertexTop.x, vertexTop.y );
+//             ctx.lineTo( vertexTop.x - arrow.width / 2, vertexTop.y + arrow.height );
+//             ctx.lineTo(vertexTop.x,vertexTop.y+arrow.height/2);
+// //        ctx.moveTo( vertexTop.x, vertexTop.y );
+//             ctx.lineTo( vertexTop.x + arrow.width / 2, vertexTop.y + arrow.height );
+// //        ctx.stroke();
+//             ctx.closePath();
+//             ctx.fill();
+//
+//             // 画右顶点箭头
+//             ctx.beginPath();
+//             ctx.moveTo( vertexRight.x, vertexRight.y );
+//             ctx.lineTo( vertexRight.x - arrow.height, vertexRight.y - arrow.width / 2 );
+//             ctx.lineTo(vertexRight.x - arrow.height/2,vertexRight.y);
+// //        ctx.moveTo( vertexRight.x, vertexRight.y );
+//             ctx.lineTo( vertexRight.x - arrow.height, vertexRight.y + arrow.width / 2 );
+//             ctx.closePath();
+//             ctx.fill();
+
+            //相对于原点 ，100,100的位置画点
+
+            /*
+            * 坐标的算法：
+            * 点x轴：原点x坐标+点到原点的水平距离
+            * 点y轴：原点y的坐标-点到原点的垂直距离
+            * */
+
+            // 需求：在坐标轴中画出如下的点
+            // [[10,10],[40,20],[50,30],[80,40]];
+            // var data = [10,20,50,80,120,280,100,50,20];
+            //
+            // //  自适应比较
+            // var maxX = cvs.width - padding.left - padding.right - arrow.height;
+            // var maxY = cvs.height - padding.top - padding.bottom - arrow.height;
+            //
+            // var perX = maxX / data.length;
+            // var perY = maxY / Math.max.apply(null,data);
+            //
+            // var newArr = data.map(function (val, index) {
+            //     return val * perY;
+            // });
+            //
+            // //在坐标轴中指定的位置画点
+            // newArr.forEach(function(val,index){
+            //     ctx.fillRect(origin.x + index * perX - 2,origin.y -val - 2,4,4);
+            // });
+            //
+            // //在坐标轴中画折线
+            // ctx.beginPath();
+            // newArr.forEach(function(val,index){
+            //     ctx.lineTo(origin.x +index * perX,origin.y -val);
+            // });
+            // ctx.stroke();
+
+    </script>
+</body>
+</html>

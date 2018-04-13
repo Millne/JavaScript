@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function object(o) {
+        function F() {};
+        F.prototype = o;
+        return new F();
+    };
+    var obj = {
+        name:'zz',
+        likeColor:['white','yellow','pink']
+    };
+    var op1 = object(obj);
+    console.log(op1);
+    op1.likeColor.push('black');
+    var op2 = object(obj);
+    console.log(op2);
+    obj.likeColor.push('blue');
+    console.log(obj);
+
+
+
+
+
+</script>
+</body>
+</html>

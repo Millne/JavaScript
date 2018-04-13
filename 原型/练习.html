@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //练习：传入一个数组，求这个数组中的最大值(new Function()来做)
+    //练习：扩展String的内置对象，强化trim功能(继承)
+    var str = "+++abc++++";
+    var str1 = "---abc-----";
+    console.log(str.trim());
+    String.prototype.trimFin = function (op) {
+        var reg, newStr;
+        if( op == '+' ){
+            reg = /\+/g;
+        }else if( op == '*' ){
+            reg = /\*/g;
+        }else if( op == '?' ){
+            reg = /\?/g;
+        }else if( op == '^' ){
+            reg = /\^/g;
+        }else if( op == '^' ){
+            reg = /\^/g;
+        }else{
+            reg = eval('/'+op+'/g');
+        }
+        newStr = this.replace(reg,'');
+        return newStr;
+    }
+    console.log(str.trimFin("+"));
+    console.log(str1.trimFin("-"));
+
+
+
+    var maxNum = new Function("arr","return Math.max.apply(null,arr)");
+    console.log(maxNum([1,2,3,4]));
+
+
+
+</script>
+</body>
+</html>

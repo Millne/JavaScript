@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // var result = [
+    //     {
+    //         index: 0,
+    //         res: 1
+    //     },
+    //     {
+    //         index: 1,
+    //     }
+    // ];
+    var result = [0,1,1,2,3,5,8];
+    function addResult(n) {
+        if( n > result.length ){
+            result.length = n;
+            result[n] = foo(n);
+            return result[n];
+        }else if( result[n] == '' ){
+            result[n] = foo(n);
+            return  result[n];
+        }else{
+            return result[n];
+        }
+    }
+    function foo(n) {
+        if( n <= 2 ){
+            return 1;
+        }else{
+            return foo(n-1) + foo(n-2);
+        }
+    }
+    console.log(addResult(10));
+    console.log(result);
+
+    1+1+1 1+2
+    2+1
+    3
+
+    1+1+1+1  1+2+1  1+1+2  1+3
+    2+1+1 2+2
+    3+1
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    const str = "{{name}}很厉害name害{{name}}，才{{age}}岁";
+    const obj = { name: "jake", age: "15" };
+
+// paresString(str,obj);
+
+    function change(str,obj) {
+        Object.keys(obj).forEach( key => {
+            str = str.replace(new RegExp(`{{${key}}}`,'g'),obj[key]);
+    });
+        return str;
+    }
+    console.log(change(str,obj));
+
+</script>
+</body>
+</html>

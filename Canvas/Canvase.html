@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas class="cvs" height="500px" width="500px"></canvas>
+<canvas class="cvs2" height="500px" width="500px"></canvas>
+
+<script>
+    var cvs = document.getElementsByClassName('cvs')[0];
+    var cvs2 = document.getElementsByClassName('cvs2')[0];
+
+    var ctx = cvs.getContext('2d');
+    var ctx2 = cvs2.getContext('2d');
+    // ctx.__proto__.draw = function (x,y,width,height,color) {
+    //     this.beginPath();
+    //     this.moveTo(x,y);
+    //     this.lineTo(width,y);
+    //     this.lineTo(width,height);
+    //     this.lineTo(x,height);
+    //     this.closePath();
+    //     this.stroke();
+    // }
+
+    function Exper(ctx,x,y,width,height,fillStyle,strokeStyle) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.fillStyle = fillStyle;
+        this.strokeStyle = strokeStyle;
+        this.ctx = ctx;
+    }
+    Exper.prototype.Draw = function () {
+        this.ctx.moveTo(this.x,this.y);
+        this.ctx.lineTo(this.x + this.width,this.y);
+        this.ctx.lineTo(this.x + this.width,this.y + this.height);
+        this.ctx.lineTo(this.x,this.y + this.height);
+    }
+    var box = new Exper(ctx,0,0,300,300,'black');
+
+    ctx.beginPath();
+    box.Draw();
+    //  箭头
+    ctx.moveTo(150,50);
+    ctx.lineTo(50,90);
+    ctx.lineTo(100,90);
+    ctx.lineTo(100,130);
+    ctx.lineTo(200,130);
+    ctx.lineTo(200,90);
+    ctx.lineTo(250,90);
+    ctx.closePath();
+    ctx.fillStyle = 'black';
+    ctx.stroke();
+    ctx.fill();
+
+    var box2 = new Exper(ctx2,0,0,300,300,'white');
+    box2.Draw();
+    createTab(501, 501);
+    function createTab(row, ver) {
+        for( var i=0; i<=row/10; i++ ){
+            var height = i*10;
+            makeRow(ctx2,row,height);
+        }
+        for( var i=0; i<=ver/10; i++ ){
+            var width = i*10;
+            makeRow(ctx2,width,ver);
+        }
+    }
+    function makeRow(op,width,height) {
+        op.beginPath();
+        if( width > 500 ){
+            op.moveTo(0,height);
+        }else{
+            op.moveTo(width,0);
+        }
+        op.lineTo(width, height);
+        op.strokeStyle = 'black';
+        op.stroke();
+        op.closePath();
+    }
+
+</script>
+</body>
+</html>

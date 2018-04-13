@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+function SuperType() {
+    this.name = 'colorChoose';
+    this.org = {
+        head:'湖州',
+        body:'北京',
+        footer:'浙江'
+    };
+    this.color = ['yellow','green','blue'];
+}
+SuperType.prototype.getColor = function () {
+    return this.color;
+}
+
+function SubType(age) {
+    SuperType.call(this);
+    this.age = age || 21;
+}
+var P1 = new SubType();
+console.log(P1.org.body);
+P1.color.push('black');
+P1.org.fin = '手';
+console.log(P1.color);
+console.log(P1.org);
+var P2 = new SubType();
+console.log(P2.color);
+console.log(P2.org);
+//console.log(P1.getColor());  //报错！！！   因此需要用到组合继承 通过原型链实现对原型属性和方法的继承
+
+    SubType.prototype = new SuperType();
+    SubType.prototype.constructor = SubType;
+
+var P3 = new SubType(30);
+console.log(P3.getColor());
+console.log(P3);
+</script>
+</body>
+</html>

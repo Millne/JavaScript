@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            height: 50px;
+            margin-top: 5px;
+        }
+        p{
+            height: 30px;
+            margin-top: 5px;
+        }
+
+    </style>
+</head>
+<body>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<script>
+
+    //案例2：将传入的参数打印，参数之间用-相互连接（[].join()）
+
+function aa() {
+    return [].join.call(arguments,'-');
+}
+console.log(aa(1,2,3,4,5,6,7));
+
+        //案例3：给页面上的所有div和p标签添加背景色
+
+    var div = document.getElementsByTagName('div');
+    var p = document.getElementsByTagName('p');
+
+//     function AddColor() {
+//             this.add = function (color) {
+//                 for( var i=0; i<this.length; i++ ){
+//                     this[i].style.background = color;
+//                 }
+//             }
+//     };
+// var addC = new AddColor();
+//
+// addC.add.call(div,"yellow");
+// addC.add.call(p,"skyblue");
+
+[].forEach.apply(div,[function (item) {item.style.background= 'yellow';}]);
+[].forEach.apply(p,[function (item) {item.style.background= 'skyblue';}]);
+
+</script>
+</body>
+</html>

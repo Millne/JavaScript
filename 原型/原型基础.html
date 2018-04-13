@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // function Fun() {
+    // }
+    // Fun.prototype.say = function () {
+    //     return this.name;
+    // };
+    // Fun.prototype.eat = function () {
+    //     return "我吃的是"+this.food+"!";
+    // };
+    // Fun.prototype.where = function () {
+    //     return "我在"+this.where+"这";
+    // };
+    // function Person(name, food, where) {
+    //     this.name = name;
+    //     this.food = food;
+    //     this.where = where;
+    //     this.Say = Fun.prototype.say.call(this);
+    //     this.InWhere = Fun.prototype.where.call(this);
+    //     this.Eat = Fun.prototype.eat.call(this);
+    //
+    // }
+
+    function superType() {
+        this.protype = true;
+        this.name = 'e3';
+    }
+    superType.prototype.getSupValue = function () {
+        return this.protype;
+    }
+    function subType() {
+        this.subprotype = false;
+        this.age = 21;
+    }
+    subType.prototype = new superType();
+    subType.prototype.getSubValue = function () {
+        return this.subprotype;
+    }
+
+    var P = new subType();
+
+
+    console.log(P.name);
+    console.log(P.getSubValue());
+    console.log(P.subprotype);
+    console.log(P.protype);
+    console.log(P);
+
+
+
+
+
+</script>
+</body>
+</html>

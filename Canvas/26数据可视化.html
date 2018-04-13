@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        canvas {
+            border: 1px solid red;
+            transition: all .6s;
+        }
+        .box{
+            width: 500px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box"><canvas id="cvs" width="500" height="500"></canvas></div>
+    <button onclick="enlargeCvs()">放大</button>
+    <button onclick="narrowCvs()">缩小</button>
+    <script>
+        var cvs = document.getElementById('cvs');
+        var ctx = cvs.getContext('2d');
+        createCvs();
+        function createCvs() {
+            ctx.clearRect(0,0,cvs.width,cvs.height);
+            //缩小的比例;
+            var perX = cvs.width / 500;
+            var perY = cvs.height / 500;
+            // 坐标轴距离画布上右下左的边距
+            var padding = {
+                top: 20 * perY,
+                right: 20 * perX,
+                bottom: 20 * perY,
+                left: 20 * perX
+            }
+            // 坐标轴中箭头的宽和高
+            var arrow = {
+                width: 12 * perX,
+                height: 20 * perY
+            }
+            // 求坐标轴上顶点的坐标
+            var vertexTop = {
+                x: padding.left,
+                y: padding.top
+            }
+
+            // 求坐标轴原点的坐标
+            var origin = {
+                x: padding.left,
+                y: cvs.height - padding.bottom
+            }
+
+            // 求坐标轴右顶点的坐标
+            var vertexRight = {
+                x: cvs.width - padding.right,
+                y: cvs.height - padding.bottom
+            }
+
+
+            // 画坐标轴中的两条线
+            ctx.moveTo( vertexTop.x, vertexTop.y );
+            ctx.lineTo( origin.x, origin.y );
+            ctx.lineTo( vertexRight.x, vertexRight.y );
+            ctx.stroke();
+
+            // 画上顶点箭头
+            ctx.beginPath();
+            ctx.moveTo( vertexTop.x, vertexTop.y );
+            ctx.lineTo( vertexTop.x - arrow.width / 2, vertexTop.y + arrow.height );
+            ctx.lineTo(vertexTop.x,vertexTop.y+arrow.height/2);
+//        ctx.moveTo( vertexTop.x, vertexTop.y );
+            ctx.lineTo( vertexTop.x + arrow.width / 2, vertexTop.y + arrow.height );
+//        ctx.stroke();
+            ctx.closePath();
+            ctx.fill();
+
+            // 画右顶点箭头
+            ctx.beginPath();
+            ctx.moveTo( vertexRight.x, vertexRight.y );
+            ctx.lineTo( vertexRight.x - arrow.height, vertexRight.y - arrow.width / 2 );
+            ctx.lineTo(vertexRight.x - arrow.height/2,vertexRight.y);
+//        ctx.moveTo( vertexRight.x, vertexRight.y );
+            ctx.lineTo( vertexRight.x - arrow.height, vertexRight.y + arrow.width / 2 );
+            ctx.closePath();
+            ctx.fill();
+
+            //相对于原点 ，100,100的位置画点
+
+            /*
+            * 坐标的算法：
+            * 点x轴：原点x坐标+点到原点的水平距离
+            * 点y轴：原点y的坐标-点到原点的垂直距离
+            * */
+
+            //需求：在坐标轴中画出如下的点
+            //[[10,10],[40,20],[50,30],[80,40]];
+            var data = [10,20,50,80,120,280,100,50,20];
+
+            var maxData = Math.max.apply(null,data);
+
+
+
+
+
+            //在坐标轴中指定的位置画点
+            data.forEach(function(val,index){
+                ctx.fillRect(origin.x +(index*20 - 2) * perX,origin.y -(val + 2) * perY,4 * perX,4 * perY);
+            });
+
+            //在坐标轴中画折线
+            ctx.beginPath();
+            data.forEach(function(val,index){
+                ctx.lineTo(origin.x +(index*20) * perX,origin.y -(val) * perY);
+            });
+            ctx.stroke();
+        }
+        //等比例缩放
+        var wNum = cvs.width;
+        var hNum = cvs.height;
+        function enlargeCvs() {
+            if( wNum >= 500 ){
+                return;
+            }
+            wNum += 30;
+            hNum += 30;
+            cvs.style.width = wNum + "px";
+            cvs.style.height = hNum + "px";
+            createCvs();
+        }
+        function narrowCvs() {
+            wNum -= 30;
+            hNum -= 30;
+            cvs.style.width = wNum + "px";
+            cvs.style.height = hNum + "px";
+            createCvs();
+        }
+    </script>
+</body>
+</html>

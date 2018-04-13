@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>歌曲管理系统</title>
+    <style>
+        .tb{
+            display: inline-block;
+            border-right:solid 2px #ddd;
+            padding: 0px 20px;
+        }
+        #result{
+            color: #00b577;
+            font-size: 20px;
+            width: 500px;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+
+    <div class="add tb">
+        添加歌曲:<br />
+        歌名:<input class="add_son" type="text"><br />
+        歌手:<input class="add_sin" type="text"><br />
+        <br />
+        <input id="add_btn" type="button" value="添加" >
+    </div>
+    <div class="del tb">
+        删除歌曲:<br />
+        歌名:<input class="del_son" type="text"><br />
+        歌手:<input class="del_sin" type="text"><br />
+        <br />
+        <input id="del_btn" type="button" value="删除" >
+    </div>
+    <div class="cge tb">
+        更改歌曲:<br />
+        歌名:<input class="cge_son" type="text"> || 更改为<input class="cge_res" type="text"><br />
+        歌手:<input class="cge_sin" type="text"><br />
+        <br />
+        <input id="cge_btn" type="button" value="更改" >
+    </div>
+    <hr />
+    <br />
+    查询歌曲: <input class="sech_son" type="text"> <input id="son_sech_btn" type="button" value="查询歌曲">  <b style="color:blue">|  或 | </b>
+    查询歌手: <input class="sech_sin" type="text"> <input id="sin_sech_btn" type="button" value="查询歌手"> <b style="color:blue">|  或 | </b>
+    查询全部: <input id="all_sech_btn" type="button" value="查询全部"><br />
+    <br />
+    <hr />
+</div>
+<div id="result"></div>
+<script src="manag_song.js"></script>
+</body>
+</html>

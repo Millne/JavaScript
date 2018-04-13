@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+        //一段楼梯一共15个台阶，一次最多跨3个台阶，有多少种方法走完（回调函数）
+    /*
+    *    1   2   3
+    *
+    *
+    *
+    *
+    * */
+    //
+    // var allStep = 15,
+    //     maxStep = 3;
+    //
+    // var stepArr = [1,2,3];
+    //
+    // function add(){
+    //
+    // }
+        function step(n) {
+            if(n===1) return 1;
+            if(n===2) return 2;
+            if(n===3) return 4;
+            return step(n-1) + step(n-2) + step(n-3)
+        }
+        console.log(step(15));
+
+        // P(1) = 1
+        // P(2) = 2 (1+1 或 2)
+        // P(3) = 4 (1+1+1, 1+2, 2+1, 3)
+        // x >= 4时， 最后一步可以走1或2或3阶，所以P(x) = P(x-1)+P(x-2)+P(x-3)
+        // 所以
+        // 1 2 4 7 13 24 44 81 149 274 504 927
+        // 答案是927
+</script>
+</body>
+</html>
